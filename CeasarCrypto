@@ -1,0 +1,39 @@
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Scanner;
+
+public class CeasarCrypto {
+	public static void main (String[] args) {
+		Scanner sc = new Scanner (System.in);
+		List arl = new ArrayList();
+		for (char i = 'A'; i <= 'Z'; i++) {
+			arl.add(i);
+		}
+		String openT = sc.nextLine();
+		String locked = sc.nextLine();
+		String test = "";
+		List<String> openL = Arrays.asList(openT.split(""));
+		int count = 0;
+		for (int i = 0; i < arl.size(); i++) {
+			ListIterator<String> lIter = openL.listIterator();
+			while (lIter.hasNext()) {
+				String x = lIter.next();
+				if((arl.indexOf(x.charAt(0)) + count) < arl.size()) {
+					test+=arl.get(arl.indexOf(x.charAt(0)) + count);
+				}else{
+					test+=arl.get((arl.indexOf(x.charAt(0)) + count) - arl.size());
+				}
+			}
+			if(test.equals(locked)) {
+				System.out.println(count);
+				break;
+			}else{
+				test = "";
+				count++;
+			}
+		}
+	}
+}
